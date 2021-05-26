@@ -1,3 +1,6 @@
-export default (state = {name:"Ashish"},action)=>{
-    return state;
-}
+import authReducer from "./auth.reducer";
+import {combineReducers} from "redux";
+const rootReducer = combineReducers({
+    auth: authReducer
+})
+export default rootReducer;
