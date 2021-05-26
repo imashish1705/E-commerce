@@ -5,6 +5,7 @@ import Home from './containers/Home';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 //import Header from "./components/Header";
+import PrivateRoute from "./components/HOC/PrivateRoute";
  function App() {
   return (
     <div>
@@ -17,7 +18,7 @@ import Signup from './containers/Signup';
         <PrivateRoute path="/orders" component={Orders} />
          */}
 
-        <Route path="/" exact component={Home} />
+        <PrivateRoute path="/" exact component={Home} />
         <Route  path="/signin" component={Signin} />
         <Route path="/signup" component={Signup} />
       </Switch>

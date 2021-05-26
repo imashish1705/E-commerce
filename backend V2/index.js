@@ -8,6 +8,7 @@ const adminRoutes = require("./src/routes/admin/auth");
 const categoryRoutes = require("./src/routes/category");
 const productRoutes = require("./src/routes/product");
 const cartRoutes = require("./src/routes/cart");
+const cors = require("cors");
 //environment variable or you can say constants
 env.config();
 
@@ -29,6 +30,7 @@ mongoose.connect('mongodb://localhost:27017/Ecommerce',
    app.use(express.json());
 
    //Router
+   app.use(cors());
     app.use("/api",userRoutes);    //api is prefix of all routes
     app.use("/api",adminRoutes); 
     app.use("/api",categoryRoutes); 
