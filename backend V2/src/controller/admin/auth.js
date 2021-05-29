@@ -1,7 +1,7 @@
 const User = require("../../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const shortid = require("shortid");
 
 
 // const generateJwtToken = (_id, role) => {
@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
         email,
         //password,
         hash_password,
-        username:Math.random().toString(),
+        username: shortid.generate(),
         role:"admin"
       });
   

@@ -18,6 +18,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post("/category/create",requiredSignin,upload.single("categoryImage"),addCategory);
+router.post("/category/create",requiredSignin,adminMiddleware,upload.single("categoryImage"),addCategory);
 router.get("/category/getCategories",getCategories);
 module.exports = router;
