@@ -1,16 +1,21 @@
-import {authConstants} from "../actions/constants";
- const initState = {
-     token : null,
-     user: {
-         firstName : "",
-         lastName : "",
-         email : "",
-         picture : ""
-     },
-     authenticate : false,
-     authenticating: false
- }
- export default (state = initState, action) => {
+import { authConstants } from "../actions/constants";
+
+const initState = {
+    token: null,
+    user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        picture: ''
+    },
+    authenticate: false,
+    authenticating: false,
+    loading: false,
+    error: null,
+    message: ''
+};
+
+export default (state = initState, action) => {
 
     console.log(action);
 
@@ -30,6 +35,27 @@ import {authConstants} from "../actions/constants";
                 authenticating: false
             }
             break;
-     }
-      return state;
- }
+        case authConstants.LOGOUT_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case authConstants.LOGOUT_SUCCESS:
+            state = {
+                ...initState
+            }
+            break;
+        case authConstants.LOGOUT_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error,
+                loading: false
+            }
+            break;
+
+    }
+
+
+    return state;
+}
