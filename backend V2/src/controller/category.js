@@ -29,7 +29,7 @@ exports.addCategory = (req, res) => {
   const categoryObj = {
     name: req.body.name,
     slug: `${slugify(req.body.name)}-${shortid.generate()}`,
-    createdBy: req.user._id,
+    //createdBy: req.user._id,
   };
 
   if (req.file) {
@@ -101,7 +101,7 @@ exports.deleteCategories = async (req, res) => {
   for (let i = 0; i < ids.length; i++) {
     const deleteCategory = await Category.findOneAndDelete({
       _id: ids[i]._id,
-      createdBy: req.user._id,
+      //createdBy: req.user._id,
     });
     deletedCategories.push(deleteCategory);
   }

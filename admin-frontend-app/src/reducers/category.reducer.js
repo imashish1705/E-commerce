@@ -7,7 +7,6 @@ const initState = {
 };
 
 
-
 const buildNewCategories = (parentId, categories, category) => {
     let myCategories = [];
 
@@ -23,7 +22,6 @@ const buildNewCategories = (parentId, categories, category) => {
             }
         ];
     }
-   
     
     for(let cat of categories){
 
@@ -46,13 +44,11 @@ const buildNewCategories = (parentId, categories, category) => {
                 children: cat.children ? buildNewCategories(parentId, cat.children, category) : []
             });
         }
-
-        
+      
     }
 
-
     return myCategories;
-} 
+}
 
 
 export default (state = initState, action) => {
