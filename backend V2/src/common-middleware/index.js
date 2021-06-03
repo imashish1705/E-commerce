@@ -1,5 +1,20 @@
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const shortid = require("shortid");
 const path = require("path");
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(path.dirname(__dirname), "uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, shortid.generate() + "-" + file.originalname);
+  },
+});
+
+exports.upload = multer({ storage });
+
 
 exports.requiredSignin = (req, res, next) => {
   if (req.headers.authorization) {
@@ -13,21 +28,25 @@ exports.requiredSignin = (req, res, next) => {
   //jwt.decode()
 };
 
-
-
-
 exports.userMiddleware = (req, res, next) => {
   if (req.user.role !== "user") {
-    return res.status(400).json({ message:  "User access denied" });
-}
-next();
-  };
+    return res.status(400).json({ message: "User access denied" });
+  }
+  next();
+};
 
-  
 exports.adminMiddleware = (req, res, next) => {
-    if (req.user.role !== "admin") {
-        return res.status(400).json({ message: "Admin access denied" });
+  if (req.user.role !== "admin") {
+    if (req.user.role !== "super-admin") {
+      return res.status(400).json({ message: "Admin access denied" });
     }
-    next();
-  };
-  
+  }
+  next();
+};
+
+exports.superAdminMiddleware = (req, res, next) => {
+  if (req.user.role !== "super-admin") {
+    return res.status(200).json({ message: "Super Admin access denied" });
+  }
+  next();
+};
